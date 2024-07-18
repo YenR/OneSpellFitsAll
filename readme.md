@@ -6,21 +6,21 @@ In the land of the AI and Games summer school, 4 brave adventurers set out to cr
 
 In this game, you are a witch who struggles with her magic, you can create anything but for a limited amount of time. How can you please all these villagers who come to you with their problems? Easy, you need to solve all of their problems with only one conjuration!
 
-![Confusing Game](AISchool_proto/Assets/theWitch.png)
+![Confusing Game](Assets/theWitch.png)
 
 We use a variety of generative tools to create both the problems that the villagers come to you with and the responses they give you. We feed the LLM the solution to the problem and the problems are created from this one word. The solution is then checked using a transformer to satisfy the villagers. 
 
 Thus we use an LLM, image generation, and a transformer in the game, all locally! No need for APIs, or even internet access. Also, your energy consumption is limited to your laptop so you are even being sustainable!
 
-![Confusing Game](AISchool_proto/Assets/screenshot1.png)
+![Confusing Game](Assets/screenshot1.png)
 
-![Confusing Game](AISchool_proto/Assets/screenshot2.png)
+![Confusing Game](Assets/screenshot2.png)
 
-![Confusing Game](AISchool_proto/Assets/Diagram3.png)
+![Confusing Game](Assets/Diagram3.png)
 
 ## Watch Gameplay Video
 
-[![Watch Gameplay Video](AISchool_proto/Assets/mainMenuTitle.png)](https://drive.google.com/file/d/114aF9KIyQ6aO25MOnVwUWmxYPfBPUOM9/view?usp=sharing)
+[![Watch Gameplay Video](Assets/mainMenuTitle.png)](https://drive.google.com/file/d/114aF9KIyQ6aO25MOnVwUWmxYPfBPUOM9/view?usp=sharing)
 
 ## Inspiration
 
