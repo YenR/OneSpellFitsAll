@@ -433,7 +433,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a9107e5bb4a70964a8b02511bb72c881, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f0ad5a91a2f9ca9469618cd7f926890f, type: 2}
   m_sharedMaterial: {fileID: 6137220967853982392, guid: a9107e5bb4a70964a8b02511bb72c881, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

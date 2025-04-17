@@ -67,11 +67,115 @@ public class gameLoop : MonoBehaviour
             "parchment",
             "crystal",
             "necklace",
-            "seashell",
+            //"seashell",
             "bow and arrow",
             "spoon",
             "envelope",
-            "barrel"
+            "barrel",
+
+            // chat gpt generated below
+
+        "hammer",
+        "screwdriver",
+        //"duct tape",
+        "flashlight",
+        "batteries",
+        "knife",
+        "scissors",
+       // "zip ties",
+        "rubber bands",
+        "paper clips",
+        "pen",
+        "pencil",
+        "notebook",
+        "ruler",
+        //"tape measure",
+        "glue",
+        //"super glue",
+        "lighter",
+        "matches",
+        "candle",
+        "bucket",
+        "mop",
+        "broom",
+        "plunger",
+        "toilet brush",
+        "cleaning spray",
+        "sponge",
+       // "steel wool",
+        "vacuum cleaner",
+        //"laundry basket",
+        "hanger",
+       // "clothesline",
+       // "clothespins",
+        "washing machine",
+        "dryer",
+        "ironing board",
+        "iron",
+        "fan",
+       // "space heater",
+       // "air purifier",
+        "toolbox",
+        "nails",
+        "screws",
+      //  "drill",
+     //   "drill bits",
+        "wrench",
+     //   "pliers",
+     //   "tweezers",
+        "measuring cup",
+     //   "funnel",
+        "bowl",
+        "pot",
+        "pan",
+     //   "strainer",
+        "cutting board",
+        "can opener",
+        "bottle opener",
+        "corkscrew",
+        "thermometer",
+        "first aid kit",
+        "bandages",
+        "antiseptic",
+    //    "alcohol wipes",
+    //    "cotton swabs",
+    //    "ice pack",
+    //    "heating pad",
+    //    "mirror",
+        "towel",
+        "blanket",
+        "pillow",
+        "sheet",
+        "curtain",
+        "lamp",
+        "light bulb",
+        "extension cord",
+    //    "power strip",
+        "alarm clock",
+    //    "phone charger",
+    //    "laptop",
+    //    "tablet",
+    //    "router",
+    //    "speaker",
+        "headphones",
+        "remote control",
+        "TV",
+        "batteries",
+        "trash bag",
+    //    "recycling bin",
+        "storage box",
+    //    "ziplock bags",
+    //    "plastic wrap",
+        "aluminum foil",
+        "safety pins",
+        "sewing kit",
+        "needle",
+        "thread",
+        "buttons",
+        "glasses",
+        "sunglasses",
+        "key",
+        "lock"
 
         };
 
@@ -80,7 +184,7 @@ public class gameLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;  
+        instance = this;
         villagerManager.maxVillagers = villagerCounter;
 
 
@@ -92,7 +196,12 @@ public class gameLoop : MonoBehaviour
     void initProblem()
     {
         string problem = words[Random.Range(0, words.Count)];
+
+        debugtxt.SetText("Debug\nprevious: " + solution + "\ncurrent: " + problem);
+
         solution = problem;
+
+
 
         villagerManager.activeVillagers.Clear();
 
@@ -104,7 +213,7 @@ public class gameLoop : MonoBehaviour
 
         int problemsNumber = villagerCounter;
 
-        string problemPrompt = "imagine you have a problem. the answer to the problem is a " + problem + ". for example - bread can solve i am hungry and i want to feed ducks. give me " + problemsNumber + " such problems, make it one short sentence with 7 words or less and no commas. return only the problems, not the solutions. do not mention the word " + problem + " in the response. give the problems as a list, for example [problem 1, problem2, problem3]. "; // return the problems in a JSON format {problems:[problem1, problem2, problem3]}. the response has to be in JSON format";
+        string problemPrompt = "Imagine you have a problem. The solution to the problem is " + problem + ". The answer directly solves the problem. For example - bread can solve I am hungry and I want to feed ducks. Give me " + problemsNumber + " such problems. Each problem is one short sentence with six words or less and no commas. Return only the problems, not the solutions. Do not mention the word " + problem + " in the response. Give the problems as a list, like this [problem 1, problem2, problem3]. Example: Solution: Phone , Problems: [I feel lonely, I need to talk to someone, There is an emergency]. Your solution is: " + problem; // return the problems in a JSON format {problems:[problem1, problem2, problem3]}. the response has to be in JSON format";
 
         Debug.Log("Asking LLM: " + problemPrompt);
         step = 0;
@@ -124,11 +233,20 @@ public class gameLoop : MonoBehaviour
 
     public void callback1()
     {
-        if(step == 2)
+        if (step == 2)
         {
             if (LLMAnswer.Contains("yes") || LLMAnswer.Contains("Yes"))
                 valid = true;
         }
+
+        LLMAnswer = LLMAnswer.Replace("Problems:", "");
+        LLMAnswer = LLMAnswer.Replace("Problem:", "");
+        LLMAnswer = LLMAnswer.Replace("problems:", "");
+        LLMAnswer = LLMAnswer.Replace("problem:", "");
+        LLMAnswer = LLMAnswer.Replace("Problems", "");
+        LLMAnswer = LLMAnswer.Replace("Problem", "");
+        LLMAnswer = LLMAnswer.Replace("problems", "");
+        LLMAnswer = LLMAnswer.Replace("problem", "");
 
         LLMAnswer = LLMAnswer.Replace("[", "");
         LLMAnswer = LLMAnswer.Replace("]", "");
@@ -151,12 +269,13 @@ public class gameLoop : MonoBehaviour
         //List<string> problems = splitList(LLMAnswer);
         List<string> problems = new List<string>();
 
-        
+
         foreach (string s in substrings)
         {
-            Debug.Log(s);
-            if(s.Length > 2)
-               problems.Add(s);
+            string a = s.Trim();
+            Debug.Log(a);
+            if (a.Length > 2)
+                problems.Add(a);
         }
 
         villagerManager.instance.createVillagers(problems);
@@ -213,7 +332,7 @@ public class gameLoop : MonoBehaviour
         lastPlayerInput = s;
         // TODO validate
         // if not valid -> show error
-        if(isNotValidInput(s))
+        if (isNotValidInput(s))
         {
             witchSays(witchErrorMsgs[Random.Range(0, witchErrorMsgs.Length)]);
 
@@ -257,16 +376,16 @@ public class gameLoop : MonoBehaviour
 
         // calculate score, increase villager counter 
 
-        string[] tmp = new string[]{ lastPlayerInput };
+        string[] tmp = new string[] { lastPlayerInput };
 
         List<System.Tuple<string, float>> tup = similarityTest.instance.getSimilarityScores(solution, tmp);
 
         Debug.Log("tested for similarity: " + solution + " and " + lastPlayerInput + ", got score: " + tup[0].Item2);
 
-        if(tup[0].Item2 >= similarityThreshold)
+        if (tup[0].Item2 >= similarityThreshold)
         {
             // all villagers accept!
-            foreach(villagerScript v in villagerManager.activeVillagers)
+            foreach (villagerScript v in villagerManager.activeVillagers)
             {
                 v.happy();
                 points++;
@@ -338,10 +457,14 @@ public class gameLoop : MonoBehaviour
 
     // Update is called once per frame
 
+    public GameObject targetObject;
+    public TMPro.TMP_Text debugtxt;
+    public KeyCode toggleKey = KeyCode.F2;
+
     bool started = false;
     void Update()
     {
-        if(!started)
+        if (!started)
         {
             //witchSays("Everyone, come to my hut and start wishing! It wont cost much, just your soul! Hehe");
 
@@ -349,5 +472,10 @@ public class gameLoop : MonoBehaviour
             started = true;
         }
 
+        if (Input.GetKeyDown(toggleKey) && targetObject != null)
+        {
+            // Toggle the active state
+            targetObject.SetActive(!targetObject.activeSelf);
+        }
     }
 }
