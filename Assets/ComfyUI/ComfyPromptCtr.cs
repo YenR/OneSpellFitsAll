@@ -13,6 +13,9 @@ public class ResponseData
 }
 public class ComfyPromptCtr : MonoBehaviour
 {
+
+    public bool skipImageGen = false;
+
     public InputField nInput,promptJsonInput;
 
     public GameObject[] spells;
@@ -34,6 +37,8 @@ public class ComfyPromptCtr : MonoBehaviour
 
     public void QueuePrompt()
     {
+        if (skipImageGen) return;
+
         StartCoroutine(QueuePromptCoroutine(pInput.text,nInput.text));
     }
 
@@ -45,8 +50,28 @@ public class ComfyPromptCtr : MonoBehaviour
         gameLoop.instance.handlePlayerInput(pInput.text);
     }
 
+    public Toggle toggle;
+    public void toggleSkipImgGen()
+    {
+        if (toggle.isOn)
+            skipImageGen = true;
+        else
+            skipImageGen = false;
+    }
+
     public void startGeneration(string message)
     {
+        if (skipImageGen)
+        {
+            Debug.Log("skipping image gen");
+
+
+            pInput.text = "";
+            pInput.interactable = true;
+            pInput.Select();
+            return;
+        }
+
         generating = true;
         pInput.interactable = false;
         StartCoroutine(QueuePromptCoroutine(pInput.text + AddToPromptText, NegativePromptText));

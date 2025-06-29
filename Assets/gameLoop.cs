@@ -197,7 +197,7 @@ public class gameLoop : MonoBehaviour
     {
         string problem = words[Random.Range(0, words.Count)];
 
-        debugtxt.SetText("Debug\nprevious: " + solution + "\ncurrent: " + problem);
+        debugtxt.SetText("Debug\nlast solution: " + solution);// + "\ncurrent: " + problem);
 
         solution = problem;
 
@@ -368,8 +368,12 @@ public class gameLoop : MonoBehaviour
 
     IEnumerator waitForImageGen()
     {
+        //if (ComfyPromptCtr.instance.skipImageGen)
+        //    yield break;
+
         // Wait until the condition is true
-        yield return new WaitUntil(() => !ComfyPromptCtr.generating);
+        if (ComfyPromptCtr.instance.skipImageGen == false)
+            yield return new WaitUntil(() => !ComfyPromptCtr.generating);
 
         // Code to execute after the condition is true
         Debug.Log("Condition is true");
